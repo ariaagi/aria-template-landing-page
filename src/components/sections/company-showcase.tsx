@@ -1,34 +1,56 @@
+import { siteCopy } from "@/content/site-copy";
 import { siteConfig } from "@/lib/config";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { cn } from "@/lib/utils";
+
+const showcaseTransition =
+  "transition-[opacity,transform,filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
 
 export function CompanyShowcase() {
-  const { companyShowcase } = siteConfig;
+  const { items } = siteConfig.companyShowcase;
+
   return (
     <section
       id="company"
-      className="flex flex-col items-center justify-center gap-10 py-10 pt-20 w-full relative px-6"
+      className="relative flex w-full flex-col items-center justify-center gap-8 px-4 py-10 pt-16 sm:gap-10 sm:px-6 sm:pt-20"
     >
-      <p className="text-muted-foreground font-medium">
-        Trusted by fast-growing startups
+      <p className="max-w-md px-1 text-center text-sm font-medium leading-snug text-balance text-muted-foreground sm:max-w-lg sm:px-2 sm:text-base">
+        {siteCopy.companyShowcase.label}
       </p>
-      <div className="grid w-full max-w-7xl grid-cols-2 md:grid-cols-4 overflow-hidden border-y border-border items-center justify-center z-20">
-        {companyShowcase.companyLogos.map((logo) => (
-          <Link
-            href="#"
-            className="group w-full h-28 flex items-center justify-center relative p-4 before:absolute before:-left-1 before:top-0 before:z-10 before:h-screen before:w-px before:bg-border before:content-[''] after:absolute after:-top-1 after:left-0 after:z-10 after:h-px after:w-screen after:bg-border after:content-['']"
-            key={logo.id}
-          >
-            <div className="transition-all duration-200 [cubic-bezier(0.165, 0.84, 0.44, 1)] translate-y-0 group-hover:-translate-y-4 duration-300 flex items-center justify-center w-full h-full">
-              {logo.logo}
+      <div className="z-20 grid w-full max-w-7xl grid-cols-3 divide-x divide-y divide-border border-y border-border lg:grid-cols-6 lg:divide-y-0">
+        {items.map((item) => {
+          const Icon = item.icon;
+
+          return (
+            <div
+              key={item.id}
+              className={cn(
+                "group relative flex min-h-[4.5rem] items-center justify-center p-2 sm:min-h-24 sm:p-3 lg:min-h-28 lg:p-4",
+                "lg:before:absolute lg:before:-left-px lg:before:top-0 lg:before:z-10 lg:before:h-full lg:before:w-px lg:before:bg-border lg:before:content-[''] lg:first:before:hidden",
+              )}
+            >
+              <div className="grid size-full place-items-center">
+                <Icon
+                  aria-hidden
+                  className={cn(
+                    "col-start-1 row-start-1 size-6 text-foreground sm:size-8 lg:size-10",
+                    showcaseTransition,
+                    "group-hover:scale-90 group-hover:opacity-0 group-hover:blur-[3px]",
+                  )}
+                />
+                <span className="sr-only">{item.name}</span>
+                <p
+                  className={cn(
+                    "col-start-1 row-start-1 max-w-full scale-95 px-1 text-center text-[0.625rem] font-medium leading-snug text-foreground opacity-0 sm:max-w-[9rem] sm:px-2 sm:text-xs lg:max-w-[11rem] lg:text-sm",
+                    showcaseTransition,
+                    "group-hover:scale-100 group-hover:opacity-100",
+                  )}
+                >
+                  {item.hoverText}
+                </p>
+              </div>
             </div>
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-8 group-hover:translate-y-4 transition-all duration-300 ease-[cubic-bezier(0.165, 0.84, 0.44, 1)]">
-              <span className="flex items-center gap-2 text-sm font-medium">
-                Learn More <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </Link>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

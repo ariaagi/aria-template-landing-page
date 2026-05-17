@@ -1,17 +1,13 @@
 "use client";
 
-import { Icons } from "@/components/icons";
+import { BrandLogo } from "@/components/brand-logo";
 import { NavMenu } from "@/components/nav-menu";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useScroll } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-const INITIAL_WIDTH = "70rem";
-const MAX_WIDTH = "800px";
 
 // Animation variants
 const overlayVariants = {
@@ -27,7 +23,7 @@ const drawerVariants = {
     y: 0,
     rotate: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       damping: 15,
       stiffness: 200,
       staggerChildren: 0.03,
@@ -93,41 +89,46 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky z-50 mx-4 flex justify-center transition-all duration-300 md:mx-0",
-        hasScrolled ? "top-6" : "top-4 mx-0",
+        "sticky z-50 flex w-full justify-center px-3 transition-all duration-300 sm:px-4 md:px-0",
+        hasScrolled ? "top-4 sm:top-6" : "top-3 sm:top-4",
       )}
     >
-      <motion.div
-        initial={{ width: INITIAL_WIDTH }}
-        animate={{ width: hasScrolled ? MAX_WIDTH : INITIAL_WIDTH }}
-        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-      >
+      <motion.div className="w-full max-w-7xl px-1 sm:px-0">
         <div
           className={cn(
-            "mx-auto max-w-7xl rounded-2xl transition-all duration-300  xl:px-0",
+            "mx-auto w-full rounded-2xl transition-all duration-300",
             hasScrolled
-              ? "px-2 border border-border backdrop-blur-lg bg-background/75"
-              : "shadow-none px-7",
+              ? "border border-border bg-background/75 px-2 backdrop-blur-lg"
+              : "px-3 shadow-none sm:px-6 md:px-7",
           )}
         >
-          <div className="flex h-[56px] items-center justify-between p-4">
-            <Link href="/" className="flex items-center gap-3">
-              <Icons.logo className="size-7 md:size-10" />
-              <p className="text-lg font-semibold text-primary">SkyAgent</p>
+          <div className="flex h-12 items-center justify-between gap-2 sm:h-[56px] sm:gap-3 sm:px-1 md:px-3">
+            <Link
+              href="/"
+              className={cn(
+                "flex min-w-0 flex-1 items-center overflow-hidden md:max-w-[32ch] md:flex-none",
+                siteConfig.brand.hasLogo && "gap-1.5 sm:gap-2 md:gap-3",
+              )}
+            >
+              <BrandLogo className="size-6 sm:size-7 md:size-9" />
+              <p className="min-w-0 truncate text-[11px] font-semibold leading-tight tracking-tight text-primary sm:text-xs md:text-sm">
+                {siteConfig.brand.displayName}
+              </p>
             </Link>
 
             <NavMenu />
 
-            <div className="flex flex-row items-center gap-1 md:gap-3 shrink-0">
+            <div className="flex shrink-0 flex-row items-center gap-1 md:gap-3">
               <div className="flex items-center space-x-6">
                 <Link
-                  className="bg-secondary h-8 hidden md:flex items-center justify-center text-sm font-normal tracking-wide rounded-full text-primary-foreground dark:text-secondary-foreground w-fit px-4 shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_3px_3px_-1.5px_rgba(16,24,40,0.06),0_1px_1px_rgba(16,24,40,0.08)] border border-white/[0.12]"
-                  href="#"
+                  className="hidden h-8 w-fit items-center justify-center rounded-lg bg-primary px-4 text-sm font-normal tracking-wide text-primary-foreground transition-colors hover:bg-primary/90 md:flex"
+                  href={siteConfig.getStartedUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  Try for free
+                  {siteConfig.cta}
                 </Link>
               </div>
-              <ThemeToggle />
               <button
                 className="md:hidden border border-border size-8 rounded-md cursor-pointer flex items-center justify-center"
                 onClick={toggleDrawer}
@@ -167,10 +168,16 @@ export function Navbar() {
               {/* Mobile menu content */}
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
-                  <Link href="/" className="flex items-center gap-3">
-                    <Icons.logo className="size-7 md:size-10" />
-                    <p className="text-lg font-semibold text-primary">
-                      SkyAgent
+                  <Link
+                    href="/"
+                    className={cn(
+                      "flex min-w-0 max-w-[32ch] items-center",
+                      siteConfig.brand.hasLogo && "gap-3",
+                    )}
+                  >
+                    <BrandLogo className="size-6" />
+                    <p className="min-w-0 truncate text-xs font-semibold leading-tight tracking-tight text-primary">
+                      {siteConfig.brand.displayName}
                     </p>
                   </Link>
                   <button
@@ -218,10 +225,12 @@ export function Navbar() {
                 {/* Action buttons */}
                 <div className="flex flex-col gap-2">
                   <Link
-                    href="#"
-                    className="bg-secondary h-8 flex items-center justify-center text-sm font-normal tracking-wide rounded-full text-primary-foreground dark:text-secondary-foreground w-full px-4 shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_3px_3px_-1.5px_rgba(16,24,40,0.06),0_1px_1px_rgba(16,24,40,0.08)] border border-white/[0.12] hover:bg-secondary/80 transition-all ease-out active:scale-95"
+                    href={siteConfig.getStartedUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-8 w-full items-center justify-center rounded-lg bg-primary px-4 text-sm font-normal tracking-wide text-primary-foreground transition-all ease-out hover:bg-primary/90 active:scale-95"
                   >
-                    Try for free
+                    {siteConfig.cta}
                   </Link>
                 </div>
               </div>

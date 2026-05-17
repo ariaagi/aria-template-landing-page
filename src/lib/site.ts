@@ -1,10 +1,16 @@
+import { siteCopy } from "@/content/site-copy";
+
 export const siteConfig = {
-  name: "SkyAgent",
-  url: "https://agent-magicui.vercel.app",
-  description: "Your template for building AI-powered agents with Magic UI.",
+  name: siteCopy.meta.siteName,
+  url:
+    process.env.NEXT_PUBLIC_APP_URL ||
+    siteCopy.links.site ||
+    "http://localhost:3000",
+  description: siteCopy.meta.description,
+  templateDescription: siteCopy.meta.templateDescription,
   links: {
-    twitter: "https://x.com/dillionverma",
-    github: "https://github.com/dillionverma",
+    twitter: siteCopy.links.twitterMetadata,
+    github: siteCopy.links.githubMetadata,
   },
 };
 

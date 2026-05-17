@@ -8,7 +8,7 @@ import { GrowthSection } from "@/components/sections/growth-section";
 import { HeroSection } from "@/components/sections/hero-section";
 import { PricingSection } from "@/components/sections/pricing-section";
 import { QuoteSection } from "@/components/sections/quote-section";
-import { TestimonialSection } from "@/components/sections/testimonial-section";
+import { UseCasesSection } from "@/components/sections/use-cases-section";
 
 export default function Home() {
   return (
@@ -20,7 +20,7 @@ export default function Home() {
       <FeatureSection />
       <GrowthSection />
       <PricingSection />
-      <TestimonialSection />
+      <UseCasesSection />
       <FAQSection />
       <CTASection />
       <FooterSection />

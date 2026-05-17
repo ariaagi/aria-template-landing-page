@@ -182,7 +182,7 @@ function ReasoningResponse({
   return (
     <div
       className={cn(
-        "text-muted-foreground prose prose-sm dark:prose-invert text-sm transition-opacity duration-300 ease-out",
+        "prose prose-sm text-sm text-muted-foreground transition-opacity duration-300 ease-out",
         className
       )}
       style={{

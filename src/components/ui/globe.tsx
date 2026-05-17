@@ -2,8 +2,7 @@
 
 import createGlobe, { COBEOptions } from "cobe";
 import { useMotionValue, useSpring } from "motion/react";
-import { useEffect, useRef, useMemo } from "react";
-import { useTheme } from "next-themes";
+import { useEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -37,20 +36,6 @@ const GLOBE_CONFIG: COBEOptions = {
   ],
 };
 
-// Define color configurations for light and dark modes
-const COLORS = {
-  light: {
-    base: [1, 1, 1] as [number, number, number],
-    glow: [1, 1, 1] as [number, number, number],
-    marker: [251 / 255, 100 / 255, 21 / 255] as [number, number, number],
-  },
-  dark: {
-    base: [0.4, 0.4, 0.4] as [number, number, number],
-    glow: [0.24, 0.24, 0.27] as [number, number, number],
-    marker: [251 / 255, 100 / 255, 21 / 255] as [number, number, number],
-  },
-};
-
 export function Globe({
   className,
   config = GLOBE_CONFIG,
@@ -58,9 +43,6 @@ export function Globe({
   className?: string;
   config?: COBEOptions;
 }) {
-  const { theme } = useTheme();
-  const isDarkMode = theme === "dark";
-
   const phiRef = useRef(0);
   const widthRef = useRef(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -73,19 +55,6 @@ export function Globe({
     damping: 30,
     stiffness: 100,
   });
-
-  const finalConfig = useMemo(
-    () => ({
-      ...config,
-      baseColor: isDarkMode ? COLORS.dark.base : COLORS.light.base,
-      glowColor: isDarkMode ? COLORS.dark.glow : COLORS.light.glow,
-      markerColor: COLORS.light.marker,
-      dark: isDarkMode ? 1 : 0,
-      diffuse: isDarkMode ? 0.5 : 0.4,
-      mapBrightness: isDarkMode ? 1.4 : 1.2,
-    }),
-    [config, isDarkMode]
-  );
 
   const updatePointerInteraction = (value: number | null) => {
     pointerInteracting.current = value;
@@ -113,7 +82,7 @@ export function Globe({
     onResize();
 
     const globe = createGlobe(canvasRef.current!, {
-      ...finalConfig,
+      ...config,
       width: widthRef.current * 2,
       height: widthRef.current * 2,
       onRender: (state) => {
@@ -124,24 +93,25 @@ export function Globe({
       },
     });
 
-    setTimeout(() => (canvasRef.current!.style.opacity = "1"), 0);
+    setTimeout(() => {
+      if (canvasRef.current) canvasRef.current.style.opacity = "1";
+    }, 0);
+
     return () => {
       globe.destroy();
       window.removeEventListener("resize", onResize);
     };
-  }, [rs, finalConfig]);
+  }, [rs, config]);
 
   return (
     <div
       className={cn(
         "absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[600px]",
-        className
+        className,
       )}
     >
       <canvas
-        className={cn(
-          "size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]"
-        )}
+        className="size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]"
         ref={canvasRef}
         onPointerDown={(e) => {
           pointerInteracting.current = e.clientX;

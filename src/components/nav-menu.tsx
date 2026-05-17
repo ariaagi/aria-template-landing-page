@@ -112,9 +112,9 @@ export function NavMenu() {
   };
 
   return (
-    <div className="w-full hidden md:block">
+    <div className="hidden min-w-0 flex-1 justify-center md:flex">
       <ul
-        className="relative mx-auto flex w-fit rounded-full h-11 px-2 items-center justify-center"
+        className="relative mx-auto flex h-11 w-fit items-center justify-center rounded-lg px-2"
         ref={ref}
       >
         {navs.map((item) => (
@@ -135,7 +135,7 @@ export function NavMenu() {
           <motion.li
             animate={{ left, width }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="absolute inset-0 my-1.5 rounded-full bg-accent/60 border border-border"
+            className="absolute inset-0 my-1.5 rounded-lg border border-border bg-accent/60"
           />
         )}
       </ul>

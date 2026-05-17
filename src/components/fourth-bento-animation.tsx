@@ -7,7 +7,10 @@ import {
   useMotionValue,
   useSpring,
 } from "motion/react";
+import { siteCopy } from "@/content/site-copy";
 import { useEffect, useRef, useState } from "react";
+
+const fourthBentoCopy = siteCopy.bentoSection.animations.fourth;
 
 interface BoxConfig {
   title: string;
@@ -16,17 +19,17 @@ interface BoxConfig {
 
 const boxConfigs: BoxConfig[] = [
   {
-    title: "Bento grid",
-    className: "bg-secondary text-white",
+    title: fourthBentoCopy.tasks.task1,
+    className: "bg-black text-white",
   },
   {
-    title: "Landing Page",
-    className: "bg-secondary/40 text-white",
+    title: fourthBentoCopy.tasks.task2,
+    className: "bg-black/40 text-white",
   },
   {
-    title: "Add Task",
+    title: fourthBentoCopy.tasks.task3,
     className:
-      "bg-secondary/20 border border-secondary border-dashed text-secondary",
+      "border border-dashed border-black/50 bg-black/10 text-black",
   },
 ];
 
@@ -185,7 +188,7 @@ export function FourthBentoAnimation({
       </div>
 
       <motion.div
-        className="absolute top-10 w-[2px] h-[calc(100%-80px)] bg-gradient-to-b from-black dark:from-accent to-transparent z-10"
+        className="absolute top-10 z-10 h-[calc(100%-80px)] w-[2px] bg-gradient-to-b from-black to-transparent"
         style={{
           x: smoothX,
           translateX: "-50%",
@@ -200,7 +203,7 @@ export function FourthBentoAnimation({
         }}
       />
       <motion.div
-        className="absolute top-14 bg-black dark:bg-accent h-6 z-20 flex items-center justify-center text-xs p-2 rounded-md shadow-[0px_2.2px_6.6px_0px_rgba(18,43,105,0.04),0px_1.1px_2.2px_0px_rgba(18,43,105,0.08),0px_0px_0px_1.1px_rgba(18,43,105,0.08),0px_1.1px_0px_0px_rgba(255,255,255,0.20)_inset,0px_4.4px_6.6px_0px_rgba(255,255,255,0.01)_inset]"
+        className="absolute top-14 z-20 flex h-6 items-center justify-center rounded-md bg-black p-2 text-xs shadow-[0px_2.2px_6.6px_0px_rgba(0,0,0,0.06),0px_1.1px_2.2px_0px_rgba(0,0,0,0.1),0px_0px_0px_1.1px_rgba(0,0,0,0.1),0px_1.1px_0px_0px_rgba(255,255,255,0.20)_inset,0px_4.4px_6.6px_0px_rgba(255,255,255,0.01)_inset]"
         style={{
           x: smoothX,
           translateX: "-50%",
@@ -214,7 +217,7 @@ export function FourthBentoAnimation({
           default: { duration: 0 }, // Makes position update instant
         }}
       >
-        <span className="text-white">12:00 AM</span>
+        <span className="text-white">{fourthBentoCopy.timelineLabel}</span>
       </motion.div>
 
       <div

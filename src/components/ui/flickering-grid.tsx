@@ -24,6 +24,38 @@ interface FlickeringGridProps extends React.HTMLAttributes<HTMLDivElement> {
   fontWeight?: number | string;
 }
 
+const FONT_FAMILY =
+  '"Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+
+function getFittedFontSize(
+  ctx: CanvasRenderingContext2D,
+  label: string,
+  maxWidth: number,
+  maxHeight: number,
+  requestedSize: number,
+  fontWeight: number | string,
+): number {
+  let size = requestedSize;
+  const minSize = 20;
+
+  while (size >= minSize) {
+    ctx.font = `${fontWeight} ${size}px ${FONT_FAMILY}`;
+    const metrics = ctx.measureText(label);
+    const textWidth = metrics.width;
+    const textHeight =
+      (metrics.actualBoundingBoxAscent || size * 0.8) +
+      (metrics.actualBoundingBoxDescent || size * 0.2);
+
+    if (textWidth <= maxWidth && textHeight <= maxHeight) {
+      return size;
+    }
+
+    size -= 2;
+  }
+
+  return minSize;
+}
+
 export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
   squareSize = 3,
   gridGap = 3,
@@ -67,15 +99,26 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
       const maskCtx = maskCanvas.getContext("2d", { willReadFrequently: true });
       if (!maskCtx) return;
 
-      // Draw text on mask canvas
+      // Draw text on mask canvas (scale down so glyphs stay inside the canvas)
       if (text) {
         maskCtx.save();
         maskCtx.scale(dpr, dpr);
+        const cssWidth = width / dpr;
+        const cssHeight = height / dpr;
+        const fittedFontSize = getFittedFontSize(
+          maskCtx,
+          text,
+          cssWidth * 0.92,
+          cssHeight * 0.82,
+          fontSize,
+          fontWeight,
+        );
+
         maskCtx.fillStyle = "white";
-        maskCtx.font = `${fontWeight} ${fontSize}px "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+        maskCtx.font = `${fontWeight} ${fittedFontSize}px ${FONT_FAMILY}`;
         maskCtx.textAlign = "center";
         maskCtx.textBaseline = "middle";
-        maskCtx.fillText(text, width / (2 * dpr), height / (2 * dpr));
+        maskCtx.fillText(text, cssWidth / 2, cssHeight / 2);
         maskCtx.restore();
       }
 

@@ -2,6 +2,7 @@
 "use client";
 
 import { Icons } from "@/components/icons";
+import { siteCopy } from "@/content/site-copy";
 import {
   Reasoning,
   ReasoningContent,
@@ -11,12 +12,16 @@ import { AnimatePresence, motion, useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 export function ReasoningBasic() {
-  const reasoningText = `Based on your calendar patterns and preferences, I recommend scheduling the team meeting for Tuesday at 2pm. This time slot has historically had the highest attendance rate, and it avoids conflicts with other recurring meetings.`;
+  const reasoningText =
+    siteCopy.bentoSection.animations.first.reasoningResponse;
 
   return (
     <Reasoning>
-      <ReasoningContent className="">
-        <ReasoningResponse text={reasoningText} />
+      <ReasoningContent className="overflow-x-visible">
+        <ReasoningResponse
+          text={reasoningText}
+          className="max-w-none break-words prose-p:leading-relaxed"
+        />
       </ReasoningContent>
     </Reasoning>
   );
@@ -45,11 +50,11 @@ export function FirstBentoAnimation() {
   return (
     <div
       ref={ref}
-      className="w-full h-full p-4 flex flex-col items-center justify-center gap-5"
+      className="flex h-full w-full flex-col items-center justify-center gap-5 overflow-visible p-4"
     >
-      <div className="pointer-events-none absolute bottom-0 left-0 h-20 w-full bg-gradient-to-t from-background to-transparent z-20"></div>
+      <div className="pointer-events-none absolute bottom-0 left-0 z-20 h-20 w-full bg-gradient-to-t from-background to-transparent" />
       <motion.div
-        className="max-w-md mx-auto w-full flex flex-col gap-2"
+        className="mx-auto flex w-full max-w-md min-w-0 flex-col gap-2 px-1 sm:px-0"
         animate={{
           y: shouldAnimate ? -75 : 0,
         }}
@@ -59,9 +64,9 @@ export function FirstBentoAnimation() {
           damping: 20,
         }}
       >
-        <div className="flex items-end justify-end gap-3">
+        <div className="flex items-end justify-end gap-2 sm:gap-3">
           <motion.div
-            className="max-w-[280px] bg-secondary text-white p-4 rounded-2xl ml-auto shadow-[0_0_10px_rgba(0,0,0,0.05)]"
+            className="ml-auto w-full max-w-[min(100%,17.5rem)] min-w-0 rounded-2xl bg-black p-3 text-white shadow-[0_0_10px_rgba(0,0,0,0.05)] sm:max-w-[280px] sm:p-4"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
@@ -69,30 +74,29 @@ export function FirstBentoAnimation() {
               ease: "easeOut",
             }}
           >
-            <p className="text-sm">
-              Hey, I need help scheduling a team meeting that works well for
-              everyone. Any suggestions for finding an optimal time slot?
+            <p className="text-sm leading-relaxed break-words">
+              {siteCopy.bentoSection.animations.first.userMessage}
             </p>
           </motion.div>
-          <div className="flex items-center bg-background rounded-full w-fit border border-border flex-shrink-0">
+          <div className="flex w-fit shrink-0 items-center rounded-full border border-border bg-background">
             <img
               src="https://randomuser.me/api/portraits/women/79.jpg"
-              alt="User Avatar"
-              className="size-8 rounded-full flex-shrink-0"
+              alt={siteCopy.bentoSection.animations.first.userAvatarAlt}
+              className="size-8 shrink-0 rounded-full"
             />
           </div>
         </div>
-        <div className="flex items-start gap-2">
-          <div className="flex items-center bg-background rounded-full size-10 flex-shrink-0 justify-center shadow-[0_0_10px_rgba(0,0,0,0.05)] border border-border">
+        <div className="flex w-full min-w-0 items-start gap-2">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-background shadow-[0_0_10px_rgba(0,0,0,0.05)]">
             <Icons.logo className="size-4" />
           </div>
 
-          <div className="relative">
+          <div className="min-h-[3.25rem] min-w-0 flex-1">
             <AnimatePresence mode="wait">
               {!shouldAnimate ? (
                 <motion.div
                   key="dots"
-                  className="absolute left-0 top-0 bg-background p-4 rounded-2xl border border-border"
+                  className="inline-flex rounded-2xl border border-border bg-background p-4"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -10 }}
@@ -105,7 +109,7 @@ export function FirstBentoAnimation() {
                     {[0, 1, 2].map((index) => (
                       <motion.div
                         key={index}
-                        className="w-2 h-2 bg-primary/50 rounded-full"
+                        className="size-2 rounded-full bg-primary/50"
                         animate={{ y: [0, -5, 0] }}
                         transition={{
                           duration: 0.6,
@@ -121,7 +125,7 @@ export function FirstBentoAnimation() {
                 <motion.div
                   key="response"
                   layout
-                  className="absolute left-0 top-0 md:min-w-[300px] min-w-[220px] p-4 bg-accent border border-border rounded-xl shadow-[0_0_10px_rgba(0,0,0,0.05)]"
+                  className="w-full min-w-0 rounded-xl border border-border bg-accent p-3 shadow-[0_0_10px_rgba(0,0,0,0.05)] sm:p-4"
                   initial={{ opacity: 0, x: 10 }}
                   animate={{
                     opacity: 1,

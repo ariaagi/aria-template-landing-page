@@ -1,43 +1,44 @@
 import { HeroVideoSection } from "@/components/sections/hero-video-section";
 import { siteConfig } from "@/lib/config";
+import { heroRadialGradientClass } from "@/lib/hero-styles";
+import { RiArrowRightLine } from "@remixicon/react";
 import Link from "next/link";
 
 export function HeroSection() {
   const { hero } = siteConfig;
 
   return (
-    <section id="hero" className="w-full relative">
-      <div className="relative flex flex-col items-center w-full px-6">
+    <section id="hero" className="relative w-full">
+      <div className="relative flex w-full flex-col items-center px-6">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 -z-10 h-[600px] md:h-[800px] w-full [background:radial-gradient(125%_125%_at_50%_10%,var(--background)_40%,var(--secondary)_100%)] rounded-b-xl"></div>
+          <div
+            className={`absolute inset-0 -z-10 h-[600px] w-full rounded-b-xl md:h-[800px] ${heroRadialGradientClass}`}
+          />
         </div>
-        <div className="relative z-10 pt-32 max-w-3xl mx-auto h-full w-full flex flex-col gap-10 items-center justify-center">
-          <p className="border border-border bg-accent rounded-full text-sm h-8 px-3 flex items-center gap-2">
-            {hero.badgeIcon}
-            {hero.badge}
-          </p>
-          <div className="flex flex-col items-center justify-center gap-5">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium tracking-tighter text-balance text-center text-primary">
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-3xl flex-col items-center justify-center gap-10 pt-32">
+          <div className="inline-flex max-w-[min(100%,20rem)] items-center justify-center gap-2 rounded-full border border-border bg-accent px-3 py-1.5 text-center text-xs leading-snug sm:max-w-none sm:px-4 sm:py-2 sm:text-sm sm:leading-normal">
+            <span className="flex shrink-0 items-center" aria-hidden>
+              {hero.badgeIcon}
+            </span>
+            <span className="text-balance">{hero.badge}</span>
+          </div>
+          <div className="flex w-full max-w-2xl flex-col items-center justify-center gap-5 px-1 sm:px-0">
+            <h1 className="text-balance text-center text-3xl font-medium tracking-tighter text-primary sm:text-4xl lg:text-5xl xl:text-6xl">
               {hero.title}
             </h1>
-            <p className="text-base md:text-lg text-center text-muted-foreground font-medium text-balance leading-relaxed tracking-tight">
+            <p className="text-pretty text-center text-[0.9375rem] font-medium leading-relaxed tracking-tight text-muted-foreground sm:text-base md:text-lg md:leading-relaxed">
               {hero.description}
             </p>
           </div>
-          <div className="flex items-center gap-2.5 flex-wrap justify-center">
-            <Link
-              href={hero.cta.primary.href}
-              className="bg-secondary h-9 flex items-center justify-center text-sm font-normal tracking-wide rounded-full text-primary-foreground dark:text-secondary-foreground w-32 px-4 shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_3px_3px_-1.5px_rgba(16,24,40,0.06),0_1px_1px_rgba(16,24,40,0.08)] border border-white/[0.12] hover:bg-secondary/80 transition-all ease-out active:scale-95"
-            >
-              {hero.cta.primary.text}
-            </Link>
-            <Link
-              href={hero.cta.secondary.href}
-              className="h-10 flex items-center justify-center w-32 px-5 text-sm font-normal tracking-wide text-primary rounded-full transition-all ease-out active:scale-95 bg-white dark:bg-background border border-[#E5E7EB] dark:border-[#27272A] hover:bg-white/80 dark:hover:bg-background/80"
-            >
-              {hero.cta.secondary.text}
-            </Link>
-          </div>
+          <Link
+            href={hero.cta.primary.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-10 w-fit items-center justify-center gap-2 rounded-lg bg-black px-4 text-sm font-medium text-white transition-colors hover:bg-black/90 active:scale-95"
+          >
+            {hero.cta.primary.text}
+            <RiArrowRightLine className="size-4" aria-hidden />
+          </Link>
         </div>
       </div>
       <HeroVideoSection />

@@ -85,7 +85,7 @@ export const siteCopy = {
 
   brand: {
     // Show logo in nav and footer: 1 = yes, 0 = no (name aligns to logo position when 0)
-    hasLogo: 1,
+    hasLogo: 0,
     // Logo file path under /public (40 characters max) — used when hasLogo is 1
     logoSrc: "/logo.png",
     // Product name shown in nav, footer, and UI (32 characters max)

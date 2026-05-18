@@ -7,7 +7,11 @@ import { Globe } from "@/components/ui/globe";
 import { MotionFadeIn } from "@/components/ui/motion-fade-in";
 import { siteCopy } from "@/content/site-copy";
 import { buildUseCaseDescription } from "@/lib/copy-helpers";
-import { companyShowcaseIconMap } from "@/lib/company-showcase-icons";
+import {
+  companyShowcaseIconMap,
+  DEFAULT_COMPANY_SHOWCASE_ICON,
+  type CompanyShowcaseIconKey,
+} from "@/lib/company-showcase-icons";
 
 export { siteCopy } from "@/content/site-copy";
 export { Highlight } from "@/lib/highlight";
@@ -29,7 +33,9 @@ const companyShowcaseItems = companyShowcaseCopyItems.map((item, index) => ({
   id: index + 1,
   name: item.name,
   hoverText: item.hoverText,
-  icon: companyShowcaseIconMap[item.icon],
+  icon:
+    companyShowcaseIconMap[item.icon as CompanyShowcaseIconKey] ??
+    DEFAULT_COMPANY_SHOWCASE_ICON,
 }));
 
 export const siteConfig = {
@@ -536,7 +542,7 @@ export const siteConfig = {
   brand: {
     displayName: siteCopy.brand.displayName,
     cta: siteCopy.brand.cta,
-    hasLogo: siteCopy.brand.hasLogo !== 0,
+    hasLogo: Boolean(siteCopy.brand.hasLogo),
     logoSrc: siteCopy.brand.logoSrc,
     footerGridTextMobile: siteCopy.brand.footerGridTextMobile,
     footerGridTextDesktop: siteCopy.brand.footerGridTextDesktop,

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Icons } from "@/components/icons";
+import { BrandMark } from "@/components/brand-logo";
 import { siteCopy } from "@/content/site-copy";
 import {
   Reasoning,
@@ -88,7 +88,7 @@ export function FirstBentoAnimation() {
         </div>
         <div className="flex w-full min-w-0 items-start gap-2">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-background shadow-[0_0_10px_rgba(0,0,0,0.05)]">
-            <Icons.logo className="size-4" />
+            <BrandMark className="size-5" />
           </div>
 
           <div className="min-h-[3.25rem] min-w-0 flex-1">

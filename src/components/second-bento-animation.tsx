@@ -1,4 +1,4 @@
-import { Icons } from "@/components/icons";
+import { BrandMark } from "@/components/brand-logo";
 import {
   IntegrationOrbitIcon,
   integrationOrbitIconSets,
@@ -13,7 +13,7 @@ export function SecondBentoAnimation() {
       <div className="pointer-events-none absolute top-0 left-0 z-20 h-20 w-full bg-gradient-to-b from-background to-transparent" />
 
       <div className="absolute top-1/2 left-1/2 z-30 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black p-2 md:bottom-0 md:top-auto">
-        <Icons.logo className="size-10 fill-white text-white" />
+        <BrandMark className="size-10" onDark />
       </div>
 
       <div className="relative flex h-full w-full items-center justify-center overflow-hidden">

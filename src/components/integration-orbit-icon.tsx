@@ -1,18 +1,18 @@
+import { siteCopy } from "@/content/site-copy";
 import {
-  RiBarChartBoxFill,
-  RiDatabase2Fill,
-  RiFigmaFill,
-  RiGoogleFill,
-  RiOpenaiFill,
-  RiPlug2Fill,
-  RiSailboatFill,
-  RiTerminalBoxFill,
-  RiVercelFill,
-} from "@remixicon/react";
+  companyShowcaseIconMap,
+  DEFAULT_COMPANY_SHOWCASE_ICON,
+  type CompanyShowcaseIconKey,
+} from "@/lib/company-showcase-icons";
 import type { ComponentType } from "react";
 import { cn } from "@/lib/utils";
 
 type OrbitIcon = ComponentType<{ className?: string }>;
+
+function resolveOrbitIcon(key: string): OrbitIcon {
+  const map = companyShowcaseIconMap as Record<string, OrbitIcon | undefined>;
+  return map[key as CompanyShowcaseIconKey] ?? DEFAULT_COMPANY_SHOWCASE_ICON;
+}
 
 export function IntegrationOrbitIcon({
   icon: Icon,
@@ -33,8 +33,10 @@ export function IntegrationOrbitIcon({
   );
 }
 
+const orbit = siteCopy.bentoSection.animations.second.orbit;
+
 export const integrationOrbitIconSets = {
-  inner: [RiSailboatFill, RiDatabase2Fill, RiFigmaFill],
-  middle: [RiPlug2Fill, RiOpenaiFill, RiGoogleFill],
-  outer: [RiVercelFill, RiTerminalBoxFill, RiBarChartBoxFill],
-} as const satisfies Record<string, readonly OrbitIcon[]>;
+  inner: [orbit.inner1, orbit.inner2, orbit.inner3].map(resolveOrbitIcon),
+  middle: [orbit.middle1, orbit.middle2, orbit.middle3].map(resolveOrbitIcon),
+  outer: [orbit.outer1, orbit.outer2, orbit.outer3].map(resolveOrbitIcon),
+} satisfies Record<string, readonly OrbitIcon[]>;

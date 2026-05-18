@@ -219,6 +219,20 @@ export const siteCopy = {
         // Bento chat user avatar alt (11 characters max)
         userAvatarAlt: "User Avatar",
       },
+      second: {
+        orbit: {
+          // Bento card 2 orbit icons (allowlist keys — inner / middle / outer ring, 3 each)
+          inner1: "sailboat" as const,
+          inner2: "database" as const,
+          inner3: "figma" as const,
+          middle1: "integrations" as const,
+          middle2: "openai" as const,
+          middle3: "google" as const,
+          outer1: "vercel" as const,
+          outer2: "terminal" as const,
+          outer3: "analytics" as const,
+        },
+      },
       fourth: {
         // Fourth bento timeline label (8 characters max)
         timelineLabel: "12:00 AM",

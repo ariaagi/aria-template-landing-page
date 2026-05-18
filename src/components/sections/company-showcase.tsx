@@ -47,8 +47,8 @@ export function CompanyShowcase() {
                 className={cn(
                   "group relative flex min-h-[4.5rem] items-center justify-center border-border bg-background p-2 sm:min-h-24 sm:p-3 lg:min-h-28 lg:p-4",
                   "border-r border-b",
-                  isLastMobileColumn && "border-r-0",
-                  isLastMobileRow && "border-b-0",
+                  isLastMobileColumn && "max-lg:border-r-0",
+                  isLastMobileRow && "max-lg:border-b-0",
                   "lg:border-b-0",
                   isLastDesktopColumn && "lg:border-r-0",
                 )}

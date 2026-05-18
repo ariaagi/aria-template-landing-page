@@ -54,15 +54,22 @@ interface UseCase {
   description: React.ReactNode;
 }
 
+/** Max visual columns at xl — must match `xl:grid-cols-*` below. */
+const USE_CASE_COLUMN_COUNT = 3;
+
 export function UseCaseGrid({ items }: { items: UseCase[] }) {
+  const perColumn = Math.ceil(items.length / USE_CASE_COLUMN_COUNT);
+
   return (
     <div className="h-full">
       <div className="px-10">
         <div className="relative max-h-[750px] overflow-hidden">
-          <div className="gap-0 md:columns-2 xl:columns-3">
-            {Array(Math.ceil(items.length / 3))
-              .fill(0)
-              .map((_, i) => (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {Array.from({ length: USE_CASE_COLUMN_COUNT }, (_, i) => {
+              const columnItems = items.slice(i * perColumn, (i + 1) * perColumn);
+              if (columnItems.length === 0) return null;
+
+              return (
                 <Marquee
                   vertical
                   key={i}
@@ -72,11 +79,12 @@ export function UseCaseGrid({ items }: { items: UseCase[] }) {
                     "[--duration:70s]": i === 3,
                   })}
                 >
-                  {items.slice(i * 3, (i + 1) * 3).map((card) => (
+                  {columnItems.map((card) => (
                     <UseCaseCard {...card} key={card.id} />
                   ))}
                 </Marquee>
-              ))}
+              );
+            })}
           </div>
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/6 w-full bg-gradient-to-t from-background from-20% md:h-1/5" />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-1/6 w-full bg-gradient-to-b from-background from-20% md:h-1/5" />

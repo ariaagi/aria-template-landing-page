@@ -536,7 +536,7 @@ export const siteConfig = {
   brand: {
     displayName: siteCopy.brand.displayName,
     cta: siteCopy.brand.cta,
-    hasLogo: siteCopy.brand.hasLogo === 1,
+    hasLogo: siteCopy.brand.hasLogo !== 0,
     logoSrc: siteCopy.brand.logoSrc,
     footerGridTextMobile: siteCopy.brand.footerGridTextMobile,
     footerGridTextDesktop: siteCopy.brand.footerGridTextDesktop,

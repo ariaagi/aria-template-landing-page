@@ -5,28 +5,38 @@ import { cn } from "@/lib/utils";
 const showcaseTransition =
   "transition-[opacity,transform,filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
 
+/** Matches layout guide rails (`left-6` / `right-6` in root layout). */
+const CONTENT_RAIL_CLASS = "mx-6";
+
 export function CompanyShowcase() {
   const { items } = siteConfig.companyShowcase;
 
   return (
     <section
       id="company"
-      className="relative flex w-full flex-col items-center justify-center gap-8 px-4 py-10 pt-16 sm:gap-10 sm:px-6 sm:pt-20"
+      className="relative flex w-full flex-col justify-center gap-8 py-10 pt-16 sm:gap-10 sm:pt-20"
     >
-      <p className="max-w-md px-1 text-center text-sm font-medium leading-snug text-balance text-muted-foreground sm:max-w-lg sm:px-2 sm:text-base">
+      <p
+        className={cn(
+          "max-w-md text-center text-sm font-medium leading-snug text-balance text-muted-foreground sm:max-w-lg sm:text-base",
+          CONTENT_RAIL_CLASS,
+        )}
+      >
         {siteCopy.companyShowcase.label}
       </p>
-      <div className="z-20 grid w-full max-w-7xl grid-cols-3 divide-x divide-y divide-border border-y border-border lg:grid-cols-6 lg:divide-y-0">
+      <div
+        className={cn(
+          CONTENT_RAIL_CLASS,
+          "grid grid-cols-3 gap-px bg-border p-px lg:grid-cols-6",
+        )}
+      >
         {items.map((item) => {
           const Icon = item.icon;
 
           return (
             <div
               key={item.id}
-              className={cn(
-                "group relative flex min-h-[4.5rem] items-center justify-center p-2 sm:min-h-24 sm:p-3 lg:min-h-28 lg:p-4",
-                "lg:before:absolute lg:before:-left-px lg:before:top-0 lg:before:z-10 lg:before:h-full lg:before:w-px lg:before:bg-border lg:before:content-[''] lg:first:before:hidden",
-              )}
+              className="group relative flex min-h-[4.5rem] items-center justify-center bg-background p-2 sm:min-h-24 sm:p-3 lg:min-h-28 lg:p-4"
             >
               <div className="grid size-full place-items-center">
                 <Icon

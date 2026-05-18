@@ -45,13 +45,12 @@ const featureCopyItems = [
   siteCopy.featureSection.items.item4,
 ] as const;
 
+/** Icon keys only — resolved in client `feature-slideshow` (cannot pass components across RSC boundary). */
 const featureSectionItems = featureCopyItems.map((item, index) => ({
   id: index + 1,
   title: item.title,
   content: item.content,
-  icon:
-    companyShowcaseIconMap[item.icon as CompanyShowcaseIconKey] ??
-    DEFAULT_COMPANY_SHOWCASE_ICON,
+  iconKey: item.icon,
 }));
 
 export const siteConfig = {

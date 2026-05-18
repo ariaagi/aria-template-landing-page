@@ -1,7 +1,6 @@
 "use client";
 
 import React, {
-  type ComponentType,
   forwardRef,
   ReactNode,
   useEffect,
@@ -11,6 +10,11 @@ import React, {
 import * as Accordion from "@radix-ui/react-accordion";
 import { motion, useInView } from "motion/react";
 
+import {
+  companyShowcaseIconMap,
+  DEFAULT_COMPANY_SHOWCASE_ICON,
+  type CompanyShowcaseIconKey,
+} from "@/lib/company-showcase-icons";
 import { cn } from "@/lib/utils";
 
 type AccordionItemProps = {
@@ -82,7 +86,8 @@ type FeatureItem = {
   id: number;
   title: string;
   content: string;
-  icon?: ComponentType<{ className?: string }>;
+  /** Allowlist key from `site-copy` — resolved here (client) to avoid RSC function props. */
+  iconKey?: string;
   image?: string;
   video?: string;
 };
@@ -208,8 +213,10 @@ export const Feature = ({
       );
     }
 
-    if (currentItem.icon) {
-      const Icon = currentItem.icon;
+    if (currentItem.iconKey) {
+      const Icon =
+        companyShowcaseIconMap[currentItem.iconKey as CompanyShowcaseIconKey] ??
+        DEFAULT_COMPANY_SHOWCASE_ICON;
       return (
         <motion.div key={currentIndex} className={mediaFrameClass}>
           <motion.div

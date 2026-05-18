@@ -14,20 +14,17 @@ export function CompanyShowcase() {
   return (
     <section
       id="company"
-      className="relative flex w-full flex-col justify-center gap-8 py-10 pt-16 sm:gap-10 sm:pt-20"
+      className="relative flex w-full flex-col items-center gap-6 bg-background py-10 pt-16 sm:gap-8 sm:pt-20"
     >
-      <p
-        className={cn(
-          "max-w-md text-center text-sm font-medium leading-snug text-balance text-muted-foreground sm:max-w-lg sm:text-base",
-          CONTENT_RAIL_CLASS,
-        )}
-      >
-        {siteCopy.companyShowcase.label}
-      </p>
+      <div className={cn(CONTENT_RAIL_CLASS, "flex w-full justify-center")}>
+        <p className="max-w-md text-center text-sm font-medium leading-snug text-balance text-muted-foreground sm:max-w-lg sm:text-base">
+          {siteCopy.companyShowcase.label}
+        </p>
+      </div>
       <div
         className={cn(
           CONTENT_RAIL_CLASS,
-          "grid grid-cols-3 gap-px bg-border p-px lg:grid-cols-6",
+          "isolate grid w-full grid-cols-3 gap-px bg-border p-px lg:grid-cols-6",
         )}
       >
         {items.map((item) => {

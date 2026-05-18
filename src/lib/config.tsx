@@ -547,6 +547,7 @@ export const siteConfig = {
     footerGridTextMobile: siteCopy.brand.footerGridTextMobile,
     footerGridTextDesktop: siteCopy.brand.footerGridTextDesktop,
     footerSocialAriaLabel: siteCopy.brand.footerSocialAriaLabel,
+    showFooterSocial: Boolean(siteCopy.brand.showFooterSocial),
   },
 };
 

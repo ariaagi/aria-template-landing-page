@@ -27,15 +27,17 @@ export function FooterSection() {
             {siteConfig.brand.displayName}
           </p>
         </Link>
-        <Link
-          href={siteConfig.links.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={siteConfig.brand.footerSocialAriaLabel}
-          className="text-muted-foreground transition-colors hover:text-primary"
-        >
-          <RiTwitterXLine className="size-6" />
-        </Link>
+        {siteConfig.brand.showFooterSocial ? (
+          <Link
+            href={siteConfig.links.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={siteConfig.brand.footerSocialAriaLabel}
+            className="text-muted-foreground transition-colors hover:text-primary"
+          >
+            <RiTwitterXLine className="size-6" />
+          </Link>
+        ) : null}
       </div>
       <div className="relative z-0 mt-8 h-56 w-full sm:h-60 md:h-64">
         <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-transparent from-55% to-background to-100%" />

@@ -6,7 +6,10 @@ const { meta } = siteCopy;
 const metaKeywords = meta.metadataKeywords;
 const seoKeywords = meta.keywords;
 
-const twitterCreatorHandle = meta.twitter.creator.replace(/^@/, "");
+const showFooterSocial = Boolean(siteCopy.brand.showFooterSocial);
+const twitterCreatorHandle = showFooterSocial
+  ? meta.twitter.creator.replace(/^@/, "")
+  : "";
 
 export const siteMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -39,7 +42,7 @@ export const siteMetadata: Metadata = {
       url: meta.author.url,
     },
   ],
-  creator: twitterCreatorHandle,
+  ...(twitterCreatorHandle ? { creator: twitterCreatorHandle } : {}),
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -52,7 +55,9 @@ export const siteMetadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    creator: meta.twitter.creator,
+    ...(showFooterSocial && meta.twitter.creator.trim()
+      ? { creator: meta.twitter.creator }
+      : {}),
   },
   robots: {
     index: true,

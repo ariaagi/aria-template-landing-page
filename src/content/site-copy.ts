@@ -98,6 +98,8 @@ export const siteCopy = {
     footerGridTextDesktop: "Streamline your workflow",
     // Footer social link aria-label (11 characters max)
     footerSocialAriaLabel: "Follow on X",
+    // Footer X icon: 1 = show when links are set, 0 = hide
+    showFooterSocial: 1,
   },
 
   nav: {

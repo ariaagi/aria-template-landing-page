@@ -263,6 +263,7 @@ export const siteCopy = {
         // Feature step 1 body (108 characters max)
         content:
           "Speak or type your command. Your App captures your intent and sets the process in motion.",
+        icon: "sparkles" as const,
       },
       item2: {
         // Feature step 2 title (24 characters max)
@@ -270,6 +271,7 @@ export const siteCopy = {
         // Feature step 2 body (79 characters max)
         content:
           "We prioritize the needs and preferences of our users in our design process.",
+        icon: "database" as const,
       },
       item3: {
         // Feature step 3 title (35 characters max)
@@ -277,6 +279,7 @@ export const siteCopy = {
         // Feature step 3 body (84 characters max)
         content:
           "Our features seamlessly integrate with your existing systems for a smooth experience.",
+        icon: "integrations" as const,
       },
       item4: {
         // Feature step 4 title (23 characters max)
@@ -284,6 +287,7 @@ export const siteCopy = {
         // Feature step 4 body (82 characters max)
         content:
           "We are constantly updating and improving our features to provide the best experience.",
+        icon: "lineChart" as const,
       },
     },
   },

@@ -1,6 +1,7 @@
 "use client";
 
 import React, {
+  type ComponentType,
   forwardRef,
   ReactNode,
   useEffect,
@@ -81,6 +82,7 @@ type FeatureItem = {
   id: number;
   title: string;
   content: string;
+  icon?: ComponentType<{ className?: string }>;
   image?: string;
   video?: string;
 };
@@ -203,6 +205,27 @@ export const Feature = ({
     if (!currentItem) {
       return (
         <div className={cn(mediaFrameClass, "animate-pulse bg-gray-200")} />
+      );
+    }
+
+    if (currentItem.icon) {
+      const Icon = currentItem.icon;
+      return (
+        <motion.div key={currentIndex} className={mediaFrameClass}>
+          <motion.div
+            className="flex size-full items-center justify-center bg-muted/40"
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <motion.div
+              className="flex size-28 items-center justify-center rounded-2xl bg-background shadow-sm ring-1 ring-border/80 sm:size-32"
+              aria-hidden
+            >
+              <Icon className="size-14 text-foreground sm:size-16" />
+            </motion.div>
+          </motion.div>
+        </motion.div>
       );
     }
 

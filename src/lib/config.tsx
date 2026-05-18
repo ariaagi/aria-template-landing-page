@@ -38,6 +38,22 @@ const companyShowcaseItems = companyShowcaseCopyItems.map((item, index) => ({
     DEFAULT_COMPANY_SHOWCASE_ICON,
 }));
 
+const featureCopyItems = [
+  siteCopy.featureSection.items.item1,
+  siteCopy.featureSection.items.item2,
+  siteCopy.featureSection.items.item3,
+  siteCopy.featureSection.items.item4,
+] as const;
+
+const featureSectionItems = featureCopyItems.map((item, index) => ({
+  id: index + 1,
+  title: item.title,
+  content: item.content,
+  icon:
+    companyShowcaseIconMap[item.icon as CompanyShowcaseIconKey] ??
+    DEFAULT_COMPANY_SHOWCASE_ICON,
+}));
+
 export const siteConfig = {
   name: siteCopy.meta.siteName,
   description: siteCopy.meta.description,
@@ -97,36 +113,7 @@ export const siteConfig = {
   featureSection: {
     title: siteCopy.featureSection.title,
     description: siteCopy.featureSection.description,
-    items: [
-      {
-        id: 1,
-        title: siteCopy.featureSection.items.item1.title,
-        content: siteCopy.featureSection.items.item1.content,
-        image:
-          "https://images.unsplash.com/photo-1720371300677-ba4838fa0678?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      {
-        id: 2,
-        title: siteCopy.featureSection.items.item2.title,
-        content: siteCopy.featureSection.items.item2.content,
-        image:
-          "https://images.unsplash.com/photo-1686170287433-c95faf6d3608?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8fA%3D%3D",
-      },
-      {
-        id: 3,
-        title: siteCopy.featureSection.items.item3.title,
-        content: siteCopy.featureSection.items.item3.content,
-        image:
-          "https://images.unsplash.com/photo-1720378042271-60aff1e1c538?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D",
-      },
-      {
-        id: 4,
-        title: siteCopy.featureSection.items.item4.title,
-        content: siteCopy.featureSection.items.item4.content,
-        image:
-          "https://images.unsplash.com/photo-1666882990322-e7f3b8df4f75?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D",
-      },
-    ],
+    items: featureSectionItems,
   },
   bentoSection: {
     title: siteCopy.bentoSection.title,

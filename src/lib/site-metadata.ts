@@ -11,6 +11,31 @@ const twitterCreatorHandle = showFooterSocial
   ? meta.twitter.creator.replace(/^@/, "")
   : "";
 
+function normalizePublicAssetPath(path: string): string {
+  const trimmed = path.trim();
+  if (!trimmed) return "";
+  return trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+}
+
+function mimeFromAssetPath(path: string): string | undefined {
+  const lower = path.toLowerCase();
+  if (lower.endsWith(".svg")) return "image/svg+xml";
+  if (lower.endsWith(".png")) return "image/png";
+  if (lower.endsWith(".webp")) return "image/webp";
+  if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return "image/jpeg";
+  if (lower.endsWith(".gif")) return "image/gif";
+  return undefined;
+}
+
+/** ARIA build sets `brand.hasLogo` + `brand.logoSrc` (e.g. `/header-logo.png`). */
+const brandLogoPath =
+  Boolean(siteCopy.brand.hasLogo) && siteCopy.brand.logoSrc.trim()
+    ? normalizePublicAssetPath(siteCopy.brand.logoSrc)
+    : "";
+const brandLogoMime = brandLogoPath
+  ? mimeFromAssetPath(brandLogoPath)
+  : undefined;
+
 export const siteMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -43,6 +68,22 @@ export const siteMetadata: Metadata = {
     },
   ],
   ...(twitterCreatorHandle ? { creator: twitterCreatorHandle } : {}),
+  ...(brandLogoPath
+    ? {
+        icons: {
+          icon: brandLogoMime
+            ? [{ url: brandLogoPath, type: brandLogoMime }]
+            : brandLogoPath,
+          apple: [
+            {
+              url: brandLogoPath,
+              sizes: "180x180",
+              ...(brandLogoMime ? { type: brandLogoMime } : {}),
+            },
+          ],
+        },
+      }
+    : {}),
   openGraph: {
     type: "website",
     locale: "en_US",
